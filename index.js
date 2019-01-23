@@ -7,7 +7,7 @@ const shell  = require('shelljs');
 var config = {};
 // Retrieve our api token from the environment variables.
 config.token = process.env.GHTOKEN;
-config.baseurl = 'https://github.ncsu.edu/api/v3';
+config.baseurl = 'https://github.com/api/v3';
 
 if( !config.token ) {
 	console.log(chalk`{red.bold GHTOKEN is not defined!}`);
@@ -19,12 +19,11 @@ if (!shell.which('git')) {
 	shell.exit(1);
 }
 
-// Configure our headers to use our token when making REST api requests.
 const headers =
 {
     'Accept': 'application/vnd.github.v3+json',
-	'Content-Type':'application/json',
-	'Authorization': 'token ' + config.token
+	'Content-Type': 'application/json',
+	'Authorization': `token ${config.token}`
 };
 
 class GitHubProvider {
@@ -70,8 +69,6 @@ async function run() {
 	await client.clone();
 }
 
-
-// Run workshop code...
 (async () => {
 	await run();
 })();
